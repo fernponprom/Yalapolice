@@ -3,12 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import firebaseConfig from './config/firebase'
 import { BrowserRouter as Router } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie'
+
+
+firebase.initializeApp(firebaseConfig)
+export const firestore = firebase.firestore()
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <CookiesProvider>
+    <Router>
+      <App />
+    </Router>
+  </CookiesProvider>,
   document.getElementById('root')
 );
 

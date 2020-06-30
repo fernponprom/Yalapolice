@@ -1,48 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import logo from './logo.svg';
 import Login from './components/Login/Login'
-import Navbar from './components/Navbar/Navbar'
 import Home from './components/Home/Home'
 import AddData from './components/AddData/AddData'
-import { Routes, Route } from 'react-router-dom';
+import FormData from './components/Form/FormData'
+import Test from './components/Test'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { firestore } from './index'
+import { useCookies } from 'react-cookie'
 
 import './App.css';
 import './components/Navbar/Navbar.css'
 // function App() {
-  const App = () => {
 
-  const Header = () => {  
-    const today  = new Date().toDateString()
-    return (
-      <div className="nav">
-        <input type="checkbox" id="nav-check" />
-        <div className="nav-header">
-          <div className="nav-title">
-          </div>
-        </div>
-        <div className="nav-btn">
-          <label htmlFor="nav-check">
-            <span />
-            <span />
-            <span />
-          </label>
-        </div>
-        {/* <div className="nav-links">
-          <h>ระบบห้องประชุมทางไกล</h>
-        </div> */}
-        <div className="date">
-          { today }
-        </div>
-      </div>
-    )
-  }
+const App = () => {
+  const [loginState, setLoginState] = useState(true)
+  const [cookies, setCookie ] = useCookies(['name'])
+  
+  const navigate = useNavigate()
+  useEffect(() => {
+    if(!loginState){
+      navigate('/login')
+    }
+  }, [])
+
   return (
     <div className="App">
-      <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/AddData" element={<AddData />} />
+        <Route path="/form" element={<FormData />} />
       </Routes>
     </div>
   );
