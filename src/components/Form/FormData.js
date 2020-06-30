@@ -205,8 +205,7 @@ const FormData = () => {
               [{text:'๑๕', alignment:'center'}, `${myData[14].place}`, {text:`${myData[14].main?'/':''}`, alignment: 'center'}, {text:`${myData[14].other?'/':''}`, alignment: 'center'}, `${myData[14].mission}`, `${myData[14].name}`, ' '],
               [{text:'๑๖', alignment:'center'}, `${myData[15].place}`, {text:`${myData[15].main?'/':''}`, alignment: 'center'}, {text:`${myData[15].other?'/':''}`, alignment: 'center'}, `${myData[15].mission}`, `${myData[15].name}`, ' '],
               [{text:'๑๗', alignment:'center'}, `${myData[16].place}`, {text:`${myData[16].main?'/':''}`, alignment: 'center'}, {text:`${myData[16].other?'/':''}`, alignment: 'center'}, `${myData[16].mission}`, `${myData[16].name}`, ' '],
-              [{text:'๑๘', alignment:'center'}, `${myData[17].place}`, {text:`${myData[17].main?'/':''}`, alignment: 'center'}, {text:`${myData[17].other?'/':''}`, alignment: 'center'}, `${myData[17].mission}`, `${myData[17].name}`, ' '],
-              [{text:'รวม', alignment:'center'}]
+              [{text:'๑๘', alignment:'center'}, `${myData[17].place}`, {text:`${myData[17].main?'/':''}`, alignment: 'center'}, {text:`${myData[17].other?'/':''}`, alignment: 'center'}, `${myData[17].mission}`, `${myData[17].name}`, ' ']
             ]
           }
         }
