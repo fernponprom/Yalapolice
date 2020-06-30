@@ -104,7 +104,7 @@ const FormData = () => {
 
 
     const saveData = (id) => {
-      firestore.collection('information').doc(id).set({id, name: fName, position: fPosition, main: fMain, mission: fMission, place, other: fOther})
+      firestore.collection('information').doc(id+'').set({id, name: fName, position: fPosition, main: fMain, mission: fMission, place, other: fOther})
     }
 
     
