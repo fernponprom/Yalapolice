@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import './Navbar.css'
-import { Link } from 'react-router-dom'
 import {
   Collapse,
   Navbar,
@@ -15,13 +14,24 @@ import {
   DropdownItem,
   DropdownToggle
 } from 'reactstrap';
+import { Button } from 'react-bootstrap';
+import firebase from 'firebase/app'
    
 const today  = new Date().toDateString()
 
-const MainNavbar = () => {
+const MainNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(
+    localStorage.getItem('loginState')
+  )
+  const logout = async () => {
+    await firebase.auth().signOut().catch(err => console.log(err))
+    localStorage.removeItem('loginState');
+    window.location.reload()
+  }
 
   const toggle = () => setIsOpen(!isOpen);
+  console.log(JSON.stringify(user))
   return  (
     <div>
       <Navbar color="light" light expand="md">
@@ -43,6 +53,10 @@ const MainNavbar = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
+          <NavbarText style={{}}><b>สวัสดี,</b> {user}</NavbarText>
+          <div style={{margin: '10px 10px 10px 10px'}}>
+            <Button color="danger" size="sm" onClick={logout}>ลงชื่อออก</Button>
+          </div>
           <NavbarText>{today}</NavbarText>
         </Collapse>
       </Navbar>

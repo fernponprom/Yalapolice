@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
-// import logo from './logo.svg';
 import Login from './components/Login/Login'
 import Home from './components/Home/Home'
 import AddData from './components/AddData/AddData'
 import FormData from './components/Form/FormData'
-import Test from './components/Test'
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { firestore } from './index'
-import { useCookies } from 'react-cookie'
+import { Routes, Route, useNavigate } from 'react-router-dom';
+
 
 import './App.css';
 import './components/Navbar/Navbar.css'
-// function App() {
 
 const App = () => {
-  const [loginState, setLoginState] = useState(true)
-  const [cookies, setCookie ] = useCookies(['name'])
-  
   const navigate = useNavigate()
+  const [login, setLogin] = useState(
+    localStorage.getItem('loginState')
+  )
+  
+  console.log(localStorage.getItem('loginState'))
   useEffect(() => {
-    if(!loginState){
+    if(!login){
       navigate('/login')
+    }else{
+      navigate('/form')
     }
   }, [])
 

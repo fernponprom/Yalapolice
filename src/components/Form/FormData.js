@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import MainNavbar from '../Navbar/MainNavbar'
 import { firestore } from '../../index'
-import { UncontrolledCollapse, Button, CardBody, Card, Form, CardHeader } from 'reactstrap';
-import { Col, Row, FormGroup, Label, Input, CustomInput, Collapse, ListGroup, ListGroupItem  } from 'reactstrap';
+import { Button, CardBody, Card, Form, CardHeader } from 'reactstrap';
+import { Col, Row, FormGroup, Label, Input, Collapse, ListGroup, ListGroupItem  } from 'reactstrap';
 import './FormData.css'
 import pdfMake from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
@@ -48,7 +48,7 @@ const FormData = () => {
       return (
         myData.map( (data, index) => {
           return (
-            <CardInput data={data} />
+            <CardInput key={index} data={data} />
           )
         })
       )
