@@ -163,7 +163,7 @@ const FormData = () => {
       pageSize: 'A4',
       pageMargins: [ 20, 20, 10, 0 ],
       content: [
-        { text: 'สถานภาพการเข้าร่วมประชุมทางไกล ประจำวันที่....เดือน........... พ.ศ ๒๕๖๓', style: 'header'},
+        { text: 'สถานภาพการเข้าร่วมประชุมทางไกล  ประจำวันที่ .......... เดือน ................. พ.ศ .........', style: 'header'},
         { 
           style: 'tableExample',
           table: {
@@ -212,18 +212,20 @@ const FormData = () => {
           }
         },
         {
+          margin: [ 0, 20, 0, 0],
           table: {
+           
             widths: [350, 200],
             body: [
               [
                 { 
                   border: [true, true, true, true], 
-                  text: 'สรุป      หัวหน้าสถานีเข้าร่วมประชุม..............สภ.            ตัวแทน...........สภ.', 
+                  text: 'สรุป   หัวหน้าสถานีเข้าร่วมประชุม..............สภ.          ตัวแทน...........สภ.', 
                   bold: true, 
                   fontSize: 16, 
                   colSpan: 1
                 },
-                { border: [false, false, false, false], text: 'ผู้ตรวจสอบ (..........................................) ', alignment: 'center'}
+                { border: [false, false, false, false], text: 'ผู้ตรวจสอบ (.....................................................) ', alignment: 'center'}
               ]
             ]
           }
@@ -253,7 +255,7 @@ const FormData = () => {
         
       },
       defaultStyle: {
-        fontSize: 15,
+        fontSize: 14,
         font: 'THSarabunNew'
       }
     }
