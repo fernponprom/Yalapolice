@@ -160,12 +160,14 @@ const FormData = () => {
   const printPDF = () => {
     console.log(myData)
     let docDefinition = {
+      pageSize: 'A4',
+      pageMargins: [ 20, 20, 10, 0 ],
       content: [
         { text: 'สถานภาพการเข้าร่วมประชุมทางไกล ประจำวันที่....เดือน........... พ.ศ ๒๕๖๓', style: 'header'},
         { 
           style: 'tableExample',
           table: {
-            widths: [20, 100, 20, 20, 160, 100, 40],
+            widths: [25, 80, 20, 25, 160, 130, 40],
             body: [
               [{text:'ลำดับ',style: 'tableHeader'}, {text:'ภ.จว.ยะลา', style: 'tableHeader'}, {text:'เข้า',style: 'tableHeader'}, {text:'ไม่เข้า', style: 'tableHeader'}, {text:'ยศ ชื่อ สกุล', style: 'tableHeader'}, {text:'ภารกิจ/ขัดข้อง',style: 'tableHeader'}, {text:'หมายเหตุ', style: 'tableHeader'}],
               [{text:'๑', alignment:'center'}, {text:'ยะลา ๑'}, ' ', ' ', ' ', ' ', ' '],
@@ -185,7 +187,7 @@ const FormData = () => {
         {
           style: 'tableExample',
           table: {
-            widths: [20, 50, 25, 25, 160, 140, 40],
+            widths: [25, 80, 30, 25, 150, 130, 40],
             body: [
               [{text:'ลำดับ', style: 'tableHeader'}, {text:'หน่วย', style: 'tableHeader'}, {text:'หัวหน้า', style: 'tableHeader'}, {text:'ผู้แทน', style: 'tableHeader'}, {text:'ภารกิจ/ขัดข้อง', style: 'tableHeader'}, {text:'ยศ ชื่อ สกุล ผู้แทน', style: 'tableHeader'}, {text:'หมายเหตุ', style: 'tableHeader'}],
               [{text:'๑', alignment:'center'}, `${myData[0].place}`, {text:`${myData[0].main?'/':''}`, alignment: 'center'}, {text:`${myData[0].other?'/':''}`, alignment: 'center'}, `${myData[0].mission}`, `${myData[0].name}`, ' '],
@@ -208,14 +210,31 @@ const FormData = () => {
               [{text:'๑๘', alignment:'center'}, `${myData[17].place}`, {text:`${myData[17].main?'/':''}`, alignment: 'center'}, {text:`${myData[17].other?'/':''}`, alignment: 'center'}, `${myData[17].mission}`, `${myData[17].name}`, ' ']
             ]
           }
+        },
+        {
+          table: {
+            widths: [350, 200],
+            body: [
+              [
+                { 
+                  border: [true, true, true, true], 
+                  text: 'สรุป      หัวหน้าสถานีเข้าร่วมประชุม..............สภ.            ตัวแทน...........สภ.', 
+                  bold: true, 
+                  fontSize: 16, 
+                  colSpan: 1
+                },
+                { border: [false, false, false, false], text: 'ผู้ตรวจสอบ (..........................................) ', alignment: 'center'}
+              ]
+            ]
+          }
         }
       ],
       styles: {
         header: {
           alignment: 'center',
-          fontSize: 18,
+          fontSize: 16,
           bold: true,
-          margin: [0, 0, 0, 10]
+          margin: [0, 0, 0, 0]
         },
         subheader: {
           fontSize: 16,
@@ -223,9 +242,10 @@ const FormData = () => {
           margin: [0, 10, 0, 5]
         },
         tableExample: {
-          margin: [0, 5, 0, 15]
+          margin: [0, 0, 0, 5]
         },
         tableHeader: {
+          fontSize: 14,
           alignment: 'center',
           bold: true,
           color: 'black'
@@ -233,6 +253,7 @@ const FormData = () => {
         
       },
       defaultStyle: {
+        fontSize: 15,
         font: 'THSarabunNew'
       }
     }

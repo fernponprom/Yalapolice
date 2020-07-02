@@ -14,6 +14,7 @@ import { CookiesProvider } from 'react-cookie'
 firebase.initializeApp(firebaseConfig)
 export const firestore = firebase.firestore()
 export const auth = firebase.auth()
+export const provider = new firebase.auth.FacebookAuthProvider()
 
 
 ReactDOM.render(

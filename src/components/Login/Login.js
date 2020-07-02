@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { Button, Form, FormGroup, Label, Input, Card, Alert } from 'reactstrap'
 import firebase from 'firebase/app'
+import { provider, firestore } from '../../index'
 import './Login.css'
 
 const Login = () => {
@@ -24,6 +25,19 @@ const Login = () => {
        setError('กรุณาใส่ชื่อผู้ใช้ และ รหัสผ่านให้ถูกต้อง')
        setVisible(true)
      }
+   }
+
+   const loginWithFacebook = async () => {
+     await firebase.auth().signInWithPopup(provider).then(async (result) => {
+       let token = result.credential.accessToken
+       let user = result.user
+       console.log(user)
+       localStorage.setItem('loginState', user.displayName)
+       window.location.reload()
+     }).catch(e => {
+       console.log(e.code)
+       console.log(e.message)
+     })
    }
 
     return (
@@ -52,7 +66,7 @@ const Login = () => {
           หรือ
         </div>
         <div style={{textAlign: 'center'}}>
-          <div className="fb-login-button" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
+          <button className="loginBtn loginBtn--facebook" onClick={ () => loginWithFacebook() }>Login with Facebook</button>
         </div>
       </Card>
       </div>
