@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import MainNavbar from '../Navbar/MainNavbar'
 import { firestore } from '../../index'
-import { Button, CardBody, Card, Form, CardHeader } from 'reactstrap';
-import { Col, Row, FormGroup, Label, Input, Collapse, ListGroup, ListGroupItem  } from 'reactstrap';
+import { Button, CardBody, Card, Form, CardHeader, CardTitle, CardText } from 'reactstrap';
+import { Col, Row, FormGroup, Label, Input, Collapse, ListGroup, ListGroupItem, TabContent, TabPane, Nav, NavItem, NavLink,  } from 'reactstrap';
 import './FormData.css'
+import classnames from 'classnames';
 import pdfMake from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
@@ -26,9 +27,16 @@ pdfMake.fonts = {
 const FormData = () => {
 
   const [myData, setMyData] = useState([])
+  const [myLeader, setMyLeader] = useState([])
+  const [activeTab, setActiveTab] = useState('1');
+
+  const toggle = tab => {
+    if(activeTab !== tab) setActiveTab(tab);
+  }
 
   useEffect(() => {
     retriveData()
+    retrieveLeader()
   }, [])
 
   const retriveData = () => {
@@ -43,6 +51,16 @@ const FormData = () => {
     })
   }
 
+  const retrieveLeader = () => {
+    firestore.collection('leader').orderBy('id', 'asc').onSnapshot( (v) => {
+      let allLeader = v.docs.map( index => {
+        const { id, place, main, name, mission, other, position } = index.data()
+        return { id, place, main, name, mission, other, position }
+      })
+      setMyLeader(allLeader)
+    })
+  }
+
   const renderCardInput = () => {
     if(myData){
       return (
@@ -53,6 +71,54 @@ const FormData = () => {
         })
       )
     }
+  }
+
+  const renderCardLeader = () => {
+    if(myLeader){
+      return (
+        myLeader.map( (data, index) => {
+          return (
+            <LeaderCardInput key={index} data={data} />
+          )
+        })
+      )
+    }
+  }
+
+  const LeaderCardInput = (props) => {
+    const { id, place, main, name, mission, other, position } = props.data
+    const [collapse, setCollapse] = useState(false);
+    const [status, setStatus] = useState('Closed');
+  
+    const onEntering = () => setStatus('Opening...');
+  
+    const onEntered = () => setStatus('Opened');
+  
+    const onExiting = () => setStatus('Closing...');
+  
+    const onExited = () => setStatus('Closed');
+  
+    const toggle = () => setCollapse(!collapse);
+    return (
+      <div>
+        <ListGroup>
+          <ListGroupItem color="success" onClick={toggle} style={{margin: '10 10 10 10'}} >{place} </ListGroupItem>
+        </ListGroup>
+        <Collapse
+          isOpen={collapse}
+          onEntering={onEntering}
+          onEntered={onEntered}
+          onExiting={onExiting}
+          onExited={onExited}
+        >
+          <Card>
+            <CardBody>
+              <LeaderFormInput data={props.data} />
+            </CardBody>
+          </Card>
+        </Collapse>
+      </div>
+    )
   }
 
   const CardInput = (props) => {
@@ -91,6 +157,70 @@ const FormData = () => {
     )
   }
 
+  const LeaderFormInput = (props) => {
+    const { data } = props 
+    const { id, place, name, position, main, mission, other } = data
+    const [fName, setName] = useState(name)
+    const [fPosition, setPosition] = useState(position)
+    const [fMain, setMain] = useState(main)
+    const [fOther, setOther] = useState(other)
+    const [fMission, setMission] = useState(mission)
+    const [fPlace, setPlace] = useState(place)
+    const [state, setState] = useState(false)
+
+
+    const saveDataLeader = () => {
+      firestore.collection('leader').doc(id+'').set({id, name: fName, position: fPosition, main: fMain, mission: fMission, place, other: fOther})
+    }
+
+    
+    return (
+      <Form>
+        <Label><b>{id}. {place}</b></Label>
+        <Row form>
+          <Col md={6}>
+            <FormGroup>
+              <Label for="exampleEmail">ชื่อ - นามสกุล</Label>
+              <Input type="text" name="name" id="exampleEmail" defaultValue={name} onChange={e => setName(e.target.value)} placeholder="กรุณากรอกคำนำหน้าชื่อ..." bsSize="sm"/>
+            </FormGroup>
+          </Col>
+          <Col md={6}>
+            <FormGroup>
+              <Label for="examplePassword">ตำแหน่ง</Label>
+              <Input type="text" name="position" defaultValue={position} onChange={(e) => setPosition(e.target.value)} id="examplePassword" placeholder="ตำแหน่ง" bsSize="sm"/>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+          <FormGroup>
+            <Label>ประธาน</Label>
+            <FormGroup check inline style={{ marginLeft: '10px'}}>
+              <Label check>
+                <Input type="checkbox" onChange={ e => setMain(!fMain)} defaultChecked={main}/> เข้าด้วยตนเอง
+              </Label>
+            </FormGroup>
+            <FormGroup check inline>
+              <Label check>
+                <Input type="checkbox" onChange={ e => setOther(!fOther)} defaultChecked={other}/> ตัวแทน
+              </Label>
+            </FormGroup>
+          </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <FormGroup>
+              <Label>ภารกิจ/เหตุขัดข้อง</Label>
+              <Input type="text" name="mission" defaultValue={mission} onChange={(e) => setMission(e.target.value)} id="examplePassword" placeholder="ตำแหน่ง" bsSize="sm"/>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Button color="success" size="sm" onClick={() => saveDataLeader(id)}>บันทึก</Button>
+      </Form>
+    )
+  }
+
   const FormInput = (props) => {
     const { data } = props 
     const { id, place, name, position, main, mission, other } = data
@@ -107,8 +237,6 @@ const FormData = () => {
       firestore.collection('information').doc(id+'').set({id, name: fName, position: fPosition, main: fMain, mission: fMission, place, other: fOther})
     }
 
-    
-    
     
     return (
       <Form>
@@ -175,7 +303,7 @@ const FormData = () => {
               [{text: '๓', alignment:'center'}, {text:'ยะลา ๓'}, ' ', ' ', ' ', ' ', ' '],
               [{text: '๔', alignment:'center'}, {text:'ยะลา ๔'}, ' ', ' ', ' ', ' ', ' '],
               [{text:'๕', alignment:'center'}, {text:'ยะลา ๕'}, ' ', ' ', ' ', ' ', ' '],
-              [{text:'๖', alignment:'center'}, {text:'ยะลา ๕'}, ' ', ' ', ' ', ' ', ' '],
+              [{text:'๖', alignment:'center'}, {text:'ยะลา ๖'}, ' ', ' ', ' ', ' ', ' '],
               [{text:'๗', alignment:'center'}, {text:'ยะลา ๗'}, ' ', ' ', ' ', ' ', ' '],
               [{text:'๘', alignment:'center'}, {text:'กก.สส.ภ.จว.ยะลา'}, ' ', ' ', ' ', ' ', ' '],
               [{text: '๙', alignment:'center'}, {text:'กลุ่มงานสอบสวน'}, ' ', ' ', ' ', ' ', ' '],
@@ -261,7 +389,7 @@ const FormData = () => {
     }
     pdfMake.createPdf(docDefinition).open()
   }
-
+  
   return (
     <div>
       <MainNavbar />
@@ -274,7 +402,33 @@ const FormData = () => {
           <Button color="warning" onClick={printPDF} size="sm" style={{marginLeft: '10px'}}><ion-icon name="print-sharp"></ion-icon></Button>
         </div>
         </CardHeader>
-          {renderCardInput()}
+        <Nav tabs style={{marginBottom: '30px'}}>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '1' })}
+            onClick={() => { toggle('1'); }}
+          >
+            1
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '2' })}
+            onClick={() => { toggle('2'); }}
+          >
+            2
+          </NavLink>
+        </NavItem>
+      </Nav>
+      <TabContent activeTab={activeTab}>
+        <TabPane tabId="1">
+          {renderCardLeader()}
+        </TabPane>
+        <TabPane tabId="2">
+        {renderCardInput()}
+        </TabPane>
+      </TabContent>
+          
         </Card>
       </div>
     </div>
