@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import MainNavbar from '../Navbar/MainNavbar'
 import { firestore } from '../../index'
-import { Button, CardBody, Card, Form, CardHeader, CardTitle, CardText } from 'reactstrap';
+import { Button, CardBody, Card, Form, CardHeader } from 'reactstrap';
 import { Col, Row, FormGroup, Label, Input, Collapse, ListGroup, ListGroupItem, TabContent, TabPane, Nav, NavItem, NavLink,  } from 'reactstrap';
 import './FormData.css'
 import classnames from 'classnames';
@@ -298,17 +298,17 @@ const FormData = () => {
             widths: [25, 80, 20, 25, 160, 130, 40],
             body: [
               [{text:'ลำดับ',style: 'tableHeader'}, {text:'ภ.จว.ยะลา', style: 'tableHeader'}, {text:'เข้า',style: 'tableHeader'}, {text:'ไม่เข้า', style: 'tableHeader'}, {text:'ยศ ชื่อ สกุล', style: 'tableHeader'}, {text:'ภารกิจ/ขัดข้อง',style: 'tableHeader'}, {text:'หมายเหตุ', style: 'tableHeader'}],
-              [{text:'๑', alignment:'center'}, {text:'ยะลา ๑'}, ' ', ' ', ' ', ' ', ' '],
-              [{text:'๒', alignment:'center'}, {text:'ยะลา ๒'}, ' ', ' ', ' ', ' ', ' '],
-              [{text: '๓', alignment:'center'}, {text:'ยะลา ๓'}, ' ', ' ', ' ', ' ', ' '],
-              [{text: '๔', alignment:'center'}, {text:'ยะลา ๔'}, ' ', ' ', ' ', ' ', ' '],
-              [{text:'๕', alignment:'center'}, {text:'ยะลา ๕'}, ' ', ' ', ' ', ' ', ' '],
-              [{text:'๖', alignment:'center'}, {text:'ยะลา ๖'}, ' ', ' ', ' ', ' ', ' '],
-              [{text:'๗', alignment:'center'}, {text:'ยะลา ๗'}, ' ', ' ', ' ', ' ', ' '],
-              [{text:'๘', alignment:'center'}, {text:'กก.สส.ภ.จว.ยะลา'}, ' ', ' ', ' ', ' ', ' '],
-              [{text: '๙', alignment:'center'}, {text:'กลุ่มงานสอบสวน'}, ' ', ' ', ' ', ' ', ' '],
-              [{text: '๑๐', alignment:'center'}, {text:'กก.ปพ.ภ.จว.ยะลา'}, ' ', ' ', ' ', ' ', ' '],
-              [{text:'๑๑', alignment:'center'}, {text:'กก.ฝอ.จว.ยะลา'}, ' ', ' ', ' ', ' ', ' '],
+              [{text:'๑', alignment:'center'}, {text:`${myLeader[0].place}`}, {text:`${myLeader[0].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[0].other?'/':''}`, alignment: 'center'}, `${myLeader[0].name}`, `${myLeader[0].mission}`, ' '],
+              [{text:'๒', alignment:'center'}, {text:`${myLeader[1].place}`}, {text:`${myLeader[1].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[1].other?'/':''}`, alignment: 'center'}, `${myLeader[1].name}`, `${myLeader[1].mission}`, ' '],
+              [{text: '๓', alignment:'center'}, {text:`${myLeader[2].place}`}, {text:`${myLeader[2].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[2].other?'/':''}`, alignment: 'center'}, `${myLeader[2].name}`, `${myLeader[2].mission}`, ' '],
+              [{text: '๔', alignment:'center'}, {text:`${myLeader[3].place}`}, {text:`${myLeader[3].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[3].other?'/':''}`, alignment: 'center'}, `${myLeader[3].name}`, `${myLeader[3].mission}`, ' '],
+              [{text:'๕', alignment:'center'}, {text:`${myLeader[4].place}`}, {text:`${myLeader[4].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[4].other?'/':''}`, alignment: 'center'}, `${myLeader[4].name}`, `${myLeader[4].mission}`, ' '],
+              [{text:'๖', alignment:'center'}, {text:`${myLeader[5].place}`}, {text:`${myLeader[5].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[5].other?'/':''}`, alignment: 'center'}, `${myLeader[5].name}`, `${myLeader[5].mission}`, ' '],
+              [{text:'๗', alignment:'center'}, {text:`${myLeader[6].place}`}, {text:`${myLeader[6].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[6].other?'/':''}`, alignment: 'center'}, `${myLeader[6].name}`, `${myLeader[6].mission}`, ' '],
+              [{text:'๘', alignment:'center'}, {text:`${myLeader[7].place}`}, {text:`${myLeader[7].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[7].other?'/':''}`, alignment: 'center'}, `${myLeader[7].name}`, `${myLeader[7].mission}`, ' '],
+              [{text: '๙', alignment:'center'}, {text:`${myLeader[8].place}`}, {text:`${myLeader[8].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[8].other?'/':''}`, alignment: 'center'}, `${myLeader[8].name}`, `${myLeader[8].mission}`, ' '],
+              [{text: '๑๐', alignment:'center'}, {text:`${myLeader[9].place}`}, {text:`${myLeader[9].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[9].other?'/':''}`, alignment: 'center'}, `${myLeader[9].name}`, `${myLeader[9].mission}`, ' '],
+              [{text:'๑๑', alignment:'center'}, {text:`${myLeader[10].place}`}, {text:`${myLeader[10].main?'/':''}`, alignment: 'center'}, {text:`${myLeader[10].other?'/':''}`, alignment: 'center'}, `${myLeader[10].name}`, `${myLeader[10].mission}`, ' '],
             ]
           }
         },
