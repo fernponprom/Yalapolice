@@ -19,8 +19,13 @@ const Login = () => {
      e.preventDefault()
      const user = await firebase.auth().signInWithEmailAndPassword(email, password).catch(err => setError(err.code))
      if(user){
-       localStorage.setItem('loginState', user.user.email)
-       window.location.reload()
+       console.log(user.user.uid)
+       const { email, uid } = user.user
+       const checkRole = await firestore.collection('users').doc(uid).get()
+       const { role } = checkRole.data()
+       localStorage.setItem('loginState', email)
+       localStorage.setItem('role', role)
+        window.location.reload()
      }else{
        setError('กรุณาใส่ชื่อผู้ใช้ และ รหัสผ่านให้ถูกต้อง')
        setVisible(true)

@@ -16,6 +16,7 @@ const App = () => {
   )
   
   console.log(localStorage.getItem('loginState'))
+  console.log(localStorage.getItem('role'))
   useEffect(() => {
     if(!login){
       navigate('/login')

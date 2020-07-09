@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import MainNavbar from '../Navbar/MainNavbar'
 import { firestore } from '../../index'
 import { Button, CardBody, Card, Form, CardHeader } from 'reactstrap';
-import { Col, Row, FormGroup, Label, Input, Collapse, ListGroup, ListGroupItem, TabContent, TabPane, Nav, NavItem, NavLink,  } from 'reactstrap';
+import { Col, Row, FormGroup, Label, Input, Collapse, ListGroup, ListGroupItem, TabContent, TabPane, Nav, NavItem, NavLink, Alert, Spinner } from 'reactstrap';
 import './FormData.css'
 import classnames from 'classnames';
 import pdfMake from 'pdfmake/build/pdfmake'
@@ -74,14 +74,25 @@ const FormData = () => {
   }
 
   const renderCardLeader = () => {
-    if(myLeader){
+    const role = localStorage.getItem('role')
+    if(role !== "admin"){
       return (
-        myLeader.map( (data, index) => {
-          return (
-            <LeaderCardInput key={index} data={data} />
-          )
-        })
+        <div style={{ textAlign: 'center' }}>
+          <Alert color="danger">
+            <b>สำหรับแอดมินเท่านั้น</b>
+          </Alert>
+        </div>
       )
+    }else{
+      if(myLeader){
+        return (
+          myLeader.map( (data, index) => {
+            return (
+              <LeaderCardInput key={index} data={data} />
+            )
+          })
+        )
+      }
     }
   }
 
@@ -167,7 +178,6 @@ const FormData = () => {
     const [fMission, setMission] = useState(mission)
     const [fPlace, setPlace] = useState(place)
     const [state, setState] = useState(false)
-
 
     const saveDataLeader = () => {
       firestore.collection('leader').doc(id+'').set({id, name: fName, position: fPosition, main: fMain, mission: fMission, place, other: fOther})
