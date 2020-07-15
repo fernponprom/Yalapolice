@@ -191,7 +191,7 @@ const FormData = () => {
           <Col md={6}>
             <FormGroup>
               <Label for="exampleEmail">ชื่อ - นามสกุล</Label>
-              <Input type="text" name="name" id="exampleEmail" defaultValue={name} onChange={e => setName(e.target.value)} placeholder="กรุณากรอกคำนำหน้าชื่อ..." bsSize="sm"/>
+              <Input type="text" name="name" id="exampleEmail" defaultValue={name} onChange={e => setName(e.target.value)} placeholder="ยศ ชื่อ ชื่อสกุล" bsSize="sm"/>
             </FormGroup>
           </Col>
           <Col md={6}>
@@ -255,7 +255,7 @@ const FormData = () => {
           <Col md={6}>
             <FormGroup>
               <Label for="exampleEmail">ชื่อ - นามสกุล</Label>
-              <Input type="text" name="name" id="exampleEmail" defaultValue={name} onChange={e => setName(e.target.value)} placeholder="กรุณากรอกคำนำหน้าชื่อ..." bsSize="sm"/>
+              <Input type="text" name="name" id="exampleEmail" defaultValue={name} onChange={e => setName(e.target.value)} placeholder="ยศ ชื่อ ชื่อสกุล" bsSize="sm"/>
             </FormGroup>
           </Col>
           <Col md={6}>
